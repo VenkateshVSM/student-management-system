@@ -29,6 +29,10 @@ const parseResponse = async (response) => {
 };
 
 const api = async (path, options = {}) => {
+  if (window.USE_SUPABASE && typeof window.supabaseApi === 'function') {
+    return await window.supabaseApi(path, options);
+  }
+
   const response = await fetch(`${API}${path}`, {
     ...options,
     headers: { ...headers, ...(options.headers || {}) }
@@ -399,6 +403,25 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
 });
 
 document.getElementById('exportStudents').addEventListener('click', async () => {
+  if (window.USE_SUPABASE && window.sbClient) {
+    try {
+      const { data, error } = await window.sbClient.from('students').select('*');
+      if (error) throw error;
+      const json = JSON.stringify(data, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'students.json';
+      link.click();
+      URL.revokeObjectURL(url);
+      toast('Students exported');
+      return;
+    } catch (e) {
+      return toast('Export failed: ' + e.message);
+    }
+  }
+
   const response = await fetch(`${API}/reports/export/students`, {
     headers: { Authorization: `Bearer ${token}` }
   });

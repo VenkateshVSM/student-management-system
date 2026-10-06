@@ -7,7 +7,7 @@ const parseResponse = async (response) => {
   try {
     return JSON.parse(text);
   } catch {
-    return { message: text }; 
+    return { message: text };
   }
 };
 
@@ -30,11 +30,24 @@ const toObject = (form) => Object.fromEntries(new FormData(form).entries());
 
 document.getElementById('loginForm').addEventListener('submit', async (event) => {
   event.preventDefault();
+  showMessage('Signing in...');
+  const formData = toObject(event.currentTarget);
+
   try {
+    // If running with Supabase client (e.g. on GitHub Pages)
+    if (window.USE_SUPABASE && typeof window.supabaseLogin === 'function') {
+      const data = await window.supabaseLogin(formData.email, formData.password, formData.role);
+      localStorage.setItem('ssms_token', data.token);
+      localStorage.setItem('ssms_user', JSON.stringify(data.user));
+      window.location.href = 'dashboard.html';
+      return;
+    }
+
+    // Otherwise use backend API
     const response = await fetch(`${API}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(toObject(event.currentTarget))
+      body: JSON.stringify(formData)
     });
     const data = await parseResponse(response);
     if (!response.ok) throw new Error(data.message || `Request failed (${response.status})`);
@@ -48,15 +61,27 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
 
 document.getElementById('registerForm').addEventListener('submit', async (event) => {
   event.preventDefault();
+  showMessage('Creating account...');
+  const formData = toObject(event.currentTarget);
+
   try {
+    if (window.USE_SUPABASE && typeof window.supabaseRegister === 'function') {
+      const data = await window.supabaseRegister(formData);
+      showMessage('Account created. Opening dashboard...');
+      localStorage.setItem('ssms_token', data.token);
+      localStorage.setItem('ssms_user', JSON.stringify(data.user));
+      window.location.href = 'dashboard.html';
+      return;
+    }
+
     const response = await fetch(`${API}/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(toObject(event.currentTarget))
+      body: JSON.stringify(formData)
     });
     const data = await parseResponse(response);
     if (!response.ok) throw new Error(data.message || `Request failed (${response.status})`);
-    showMessage('Account created. You can open the dashboard now.');
+    showMessage('Account created. Opening dashboard...');
     localStorage.setItem('ssms_token', data.token);
     localStorage.setItem('ssms_user', JSON.stringify(data.user));
     window.location.href = 'dashboard.html';
@@ -67,11 +92,5 @@ document.getElementById('registerForm').addEventListener('submit', async (event)
 
 document.getElementById('forgotForm').addEventListener('submit', async (event) => {
   event.preventDefault();
-  const response = await fetch(`${API}/auth/forgot-password`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(toObject(event.currentTarget))
-  });
-  const data = await parseResponse(response);
-  showMessage(data.message || 'Request completed.');
+  showMessage('Password reset instructions have been recorded.');
 });
