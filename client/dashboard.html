@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | Smart Student Management System</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/config.js"></script>
+  </head>
+  <body>
+    <aside class="sidebar">
+      <h2>SSMS</h2>
+      <nav>
+        <button class="nav-btn active" data-view="overview">Dashboard</button>
+        <button class="nav-btn" data-view="students">Students</button>
+        <button class="nav-btn" data-view="teachers">Teachers</button>
+        <button class="nav-btn" data-view="courses">Courses</button>
+        <button class="nav-btn" data-view="enrollments">Enrollments</button>
+        <button class="nav-btn" data-view="schedules">Schedules</button>
+        <button class="nav-btn" data-view="attendance">Attendance</button>
+        <button class="nav-btn" data-view="marks">Exams</button>
+        <button class="nav-btn" data-view="fees">Fees</button>
+        <button class="nav-btn" data-view="notifications">Notifications</button>
+      </nav>
+    </aside>
+
+    <main class="app">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow" id="roleLabel">Dashboard</p>
+          <h1 id="welcomeTitle">Smart Student Management System</h1>
+        </div>
+        <div class="topbar-actions">
+          <button class="ghost-btn" id="exportStudents">Export Students</button>
+          <button id="logoutBtn">Logout</button>
+        </div>
+      </header>
+
+      <section class="view active" id="overview">
+        <div class="cards" id="dashboardCards"></div>
+        <div class="chart-grid">
+          <section class="panel"><canvas id="studentGrowthChart"></canvas></section>
+          <section class="panel"><canvas id="attendanceChart"></canvas></section>
+          <section class="panel"><canvas id="feesChart"></canvas></section>
+        </div>
+      </section>
+
+      <section class="view" id="students" data-module="students">
+        <div class="section-head">
+          <h2>Students</h2>
+          <input class="search" placeholder="Search students" />
+        </div>
+        <form class="data-form" data-form="students"></form>
+        <div class="table-wrap"><table><thead></thead><tbody></tbody></table></div>
+      </section>
+
+      <section class="view" id="teachers" data-module="teachers">
+        <div class="section-head">
+          <h2>Teachers</h2>
+          <input class="search" placeholder="Search teachers" />
+        </div>
+        <form class="data-form" data-form="teachers"></form>
+        <div class="table-wrap"><table><thead></thead><tbody></tbody></table></div>
+      </section>
+
+      <section class="view" id="courses" data-module="courses">
+        <div class="section-head">
+          <h2>Courses</h2>
+          <input class="search" placeholder="Search courses" />
+        </div>
+        <form class="data-form" data-form="courses"></form>
+        <div class="table-wrap"><table><thead></thead><tbody></tbody></table></div>
+      </section>
+
+      <section class="view" id="enrollments" data-module="enrollments">
+        <div class="section-head">
+          <h2>Enrollments</h2>
+          <input class="search" placeholder="Search enrollment status" />
+        </div>
+        <form class="data-form" data-form="enrollments"></form>
+        <div class="table-wrap"><table><thead></thead><tbody></tbody></table></div>
+      </section>
+
+      <section class="view" id="schedules" data-module="schedules">
+        <div class="section-head">
+          <h2>Class Schedule</h2>
+          <input class="search" placeholder="Search classes or rooms" />
+        </div>
+        <form class="data-form" data-form="schedules"></form>
+        <div class="table-wrap"><table><thead></thead><tbody></tbody></table></div>
+      </section>
+
+      <section class="view" id="attendance" data-module="attendance">
+        <div class="section-head">
+          <h2>Attendance</h2>
+          <input class="search" placeholder="Search status or class" />
+        </div>
+        <form class="data-form" data-form="attendance"></form>
+        <div class="table-wrap"><table><thead></thead><tbody></tbody></table></div>
+      </section>
+
+      <section class="view" id="marks" data-module="marks">
+        <div class="section-head"><h2>Examination Marks</h2></div>
+        <form class="data-form" data-form="marks"></form>
+        <div class="table-wrap"><table><thead></thead><tbody></tbody></table></div>
+      </section>
+
+      <section class="view" id="fees" data-module="fees">
+        <div class="section-head"><h2>Fee Management</h2></div>
+        <form class="data-form" data-form="fees"></form>
+        <div class="table-wrap"><table><thead></thead><tbody></tbody></table></div>
+      </section>
+
+      <section class="view" id="notifications" data-module="notifications">
+        <div class="section-head"><h2>Notifications</h2></div>
+        <form class="data-form" data-form="notifications"></form>
+        <div class="table-wrap"><table><thead></thead><tbody></tbody></table></div>
+      </section>
+
+      <p id="toast" class="toast"></p>
+    </main>
+    <script src="js/dashboard.js"></script>
+  </body>
+</html>

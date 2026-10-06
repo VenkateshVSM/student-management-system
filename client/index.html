@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Student Management System</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="auth-page">
+    <main class="auth-shell">
+      <section class="auth-panel">
+        <div>
+          <p class="eyebrow">Campus Operations</p>
+          <h1>Smart Student Management System</h1>
+          <p class="muted">
+            Manage admissions, courses, attendance, marks, fees, reports, notifications, and role-based access from one responsive dashboard.
+          </p>
+        </div>
+        <div class="metric-strip">
+          <span>JWT Login</span>
+          <span>MySQL Records</span>
+          <span>PDF Reports</span>
+        </div>
+      </section>
+
+      <section class="auth-card">
+        <div class="tabs">
+          <button class="tab active" data-auth-tab="login">Login</button>
+          <button class="tab" data-auth-tab="register">Register</button>
+          <button class="tab" data-auth-tab="forgot">Forgot</button>
+        </div>
+
+        <form id="loginForm" class="auth-form">
+          <label>Email<input type="email" name="email" value="admin@example.com" required /></label>
+          <label>Password<input type="password" name="password" value="admin123" required /></label>
+          <label>
+            Role
+            <select name="role">
+              <option>Admin</option>
+              <option>Teacher</option>
+              <option>Student</option>
+            </select>
+          </label>
+          <button type="submit">Login</button>
+        </form>
+
+        <form id="registerForm" class="auth-form hidden">
+          <label>Name<input name="name" required /></label>
+          <label>Email<input type="email" name="email" required /></label>
+          <label>Password<input type="password" name="password" required /></label>
+          <label>
+            Role
+            <select name="role">
+              <option>Student</option>
+              <option>Teacher</option>
+              <option>Admin</option>
+            </select>
+          </label>
+          <button type="submit">Create Account</button>
+        </form>
+
+        <form id="forgotForm" class="auth-form hidden">
+          <label>Email<input type="email" name="email" required /></label>
+          <button type="submit">Request Reset</button>
+        </form>
+
+        <p id="authMessage" class="form-message"></p>
+      </section>
+    </main>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+  </body>
+</html>

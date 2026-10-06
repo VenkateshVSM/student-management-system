@@ -1,0 +1,34 @@
+{
+  "name": "smart-student-management-system",
+  "version": "1.0.0",
+  "description": "Smart Student Management System using HTML, CSS, JavaScript, Node.js, Express, MySQL, and JWT authentication.",
+  "main": "server/app.js",
+  "scripts": {
+    "start": "node server/app.js",
+    "dev": "nodemon server/app.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "student-management",
+    "express",
+    "mysql",
+    "jwt"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.117.2",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "exceljs": "^4.4.0",
+    "express": "^4.18.3",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.9.2",
+    "pdfkit": "^0.15.0",
+    "pg": "^8.23.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
